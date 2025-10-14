@@ -42,13 +42,13 @@ public class SampleController {
     }
 
     @DeleteMapping("/samples/{id}")
-    public ResponseEntity<ResponseObject<Void>> deleteSample(@PathVariable Integer id) {
+    public ResponseEntity<ResponseObject<Void>> deleteSample(@PathVariable Long id) {
         sampleService.delete(id);
         return ResponseEntity.ok(ResponseObject.success());
     }
 
     @GetMapping("/samples/{id}")
-    public ResponseEntity<ResponseObject<Sample>> getSample(@PathVariable Integer id) {
+    public ResponseEntity<ResponseObject<Sample>> getSample(@PathVariable Long id) {
         return ResponseEntity.ok(ResponseObject.success(sampleService.findById(id)));
     }
 

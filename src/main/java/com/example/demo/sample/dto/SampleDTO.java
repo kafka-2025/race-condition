@@ -6,7 +6,7 @@ import jakarta.validation.constraints.NotNull;
 
 public record SampleDTO(
         @NotNull(groups = ValidationGroups.Update.class, message = "필수 입력값입니다.")
-        Integer id,
+        Long id,
 
         @NotBlank(groups = {ValidationGroups.Insert.class, ValidationGroups.Update.class}, message = "필수 입력값입니다.")
         String name) {

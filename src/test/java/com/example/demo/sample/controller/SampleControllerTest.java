@@ -37,8 +37,8 @@ class SampleControllerTest {
         // Mock 동작 정의 (stub)
         when(sampleService.findAll())
                 .thenReturn(List.of(
-                        new Sample(1, "홍길동"),
-                        new Sample(2, "둘리")
+                        new Sample(1L, "홍길동"),
+                        new Sample(2L, "둘리")
                 ));
 
         // 호출 (ack) + 결과 검증 (assert)
@@ -60,7 +60,7 @@ class SampleControllerTest {
     void registerSample_정상등록() throws Exception {
         // given
         SampleDTO requestDto = new SampleDTO(null, "홍길동");
-        Sample insertedSample = new Sample(1, "홍길동");
+        Sample insertedSample = new Sample(1L, "홍길동");
 
         // Mock 동작 정의 (stub)
         when(sampleService.insert(any(Sample.class)))
@@ -82,8 +82,8 @@ class SampleControllerTest {
     @Test
     void updateSample_정상업데이트() throws Exception {
         // give
-        SampleDTO requestDTO = new SampleDTO(1, "둘리");
-        Sample updatedSample = new Sample(1, "둘리");
+        SampleDTO requestDTO = new SampleDTO(1L, "둘리");
+        Sample updatedSample = new Sample(1L, "둘리");
 
         // Mock 동작 정의 (stub)
         when(sampleService.update(any(Sample.class)))
@@ -106,7 +106,7 @@ class SampleControllerTest {
     @Test
     void deleteSample_정상삭제() throws Exception {
         // given
-        Integer id = 1;
+        Long id = 1L;
 
         // when & then
         mockMvc.perform(delete("/samples/" + id))
@@ -120,11 +120,11 @@ class SampleControllerTest {
     @Test
     void getSample_정상조회() throws Exception {
         // given
-        Integer id = 1;
+        Long id = 1L;
 
         // Mock act
         when(sampleService.findById(id))
-                .thenReturn(new Sample(1, "홍길동"));
+                .thenReturn(new Sample(1L, "홍길동"));
 
         // when & then
         mockMvc.perform(get("/samples/" + id))

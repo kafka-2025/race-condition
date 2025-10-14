@@ -37,7 +37,7 @@ public class SampleRepository {
         ) {
             while (rs.next()) {
                 Sample sample = new Sample(
-                        rs.getInt("id"),
+                        rs.getLong("id"),
                         rs.getString("name")
                 );
                 samples.add(sample);
@@ -61,7 +61,7 @@ public class SampleRepository {
 
             try (ResultSet rs = ps.getGeneratedKeys()) {
                 if (rs.next()) {
-                    sample.setId(rs.getInt(1));
+                    sample.setId(rs.getLong(1));
                 }
             }
         } catch (Exception e) {
@@ -78,7 +78,7 @@ public class SampleRepository {
                 PreparedStatement ps = conn.prepareStatement(sql);
         ) {
             ps.setString(1, sample.getName());
-            ps.setInt(2, sample.getId());
+            ps.setLong(2, sample.getId());
             int affectedRows = ps.executeUpdate();
             if (affectedRows == 0) {
                 throw new RuntimeException("Failed to update sample");
@@ -89,14 +89,14 @@ public class SampleRepository {
         return sample;
     }
 
-    public void delete(Integer id) {
+    public void delete(Long id) {
         String sql = "delete from tb_sample where id=?";
 
         try (
                 Connection conn = dataSource.getConnection();
                 PreparedStatement ps = conn.prepareStatement(sql);
         ) {
-            ps.setInt(1, id);
+            ps.setLong(1, id);
             int affectedRows = ps.executeUpdate();
             if (affectedRows == 0) {
                 throw new RuntimeException("Failed to delete sample");
@@ -107,7 +107,7 @@ public class SampleRepository {
         }
     }
 
-    public Optional<Sample> findById(Integer id) {
+    public Optional<Sample> findById(Long id) {
         String sql = "select id, name from tb_sample where id=?";
         Sample sample = null;
         try (
@@ -115,10 +115,10 @@ public class SampleRepository {
                 PreparedStatement ps = conn.prepareStatement(sql);
 
         ) {
-            ps.setInt(1, id);
+            ps.setLong(1, id);
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
-                    return Optional.of(new Sample(rs.getInt("id"), rs.getString("name")));
+                    return Optional.of(new Sample(rs.getLong("id"), rs.getString("name")));
                 }
             }
         } catch (Exception e) {

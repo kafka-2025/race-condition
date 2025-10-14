@@ -28,11 +28,11 @@ public class SampleService {
         return sampleRepository.update(sample);
     }
 
-    public void delete(Integer id) {
+    public void delete(Long id) {
         sampleRepository.delete(id);
     }
 
-    public Sample findById(Integer id) {
+    public Sample findById(Long id) {
         return sampleRepository.findById(id).orElseThrow(() -> new NotFoundException("Sample not found with id:" + id));
     }
 }

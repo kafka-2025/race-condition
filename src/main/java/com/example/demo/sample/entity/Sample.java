@@ -2,10 +2,10 @@ package com.example.demo.sample.entity;
 
 public class Sample {
 
-    private Integer id;
+    private Long id;
     private String name;
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
@@ -13,11 +13,11 @@ public class Sample {
         return name;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public Sample(Integer id, String name) {
+    public Sample(Long id, String name) {
         this.id = id;
         this.name = name;
     }

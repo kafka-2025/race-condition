@@ -32,6 +32,7 @@ class SampleRepositoryTest {
         try (Connection connection = dataSource.getConnection()) {
             Statement statement = connection.createStatement();
 
+            statement.executeUpdate("DROP TABLE IF EXISTS tb_sample");
             statement.executeUpdate("CREATE TABLE tb_sample (id INT PRIMARY KEY AUTO_INCREMENT, name varchar(255))");
             statement.executeUpdate("INSERT INTO tb_sample (name) VALUES ('홍길동')");
             statement.executeUpdate("INSERT INTO tb_sample (name) VALUES ('둘리')");
@@ -39,14 +40,14 @@ class SampleRepositoryTest {
     }
 
     @Test
-    void findAll_정상조회() {
+    void findAll_정상조회DB() {
         List<Sample> samples = sampleRepository.findAll();
         assertThat(samples).extracting("name").containsExactly("홍길동", "둘리");
     }
 
     @Test
-    void insert_성공() {
-        Sample sample = new Sample(0, "철수");
+    void insert_성공DB() {
+        Sample sample = new Sample(null, "철수");
         sampleRepository.insert(sample);
         List<Sample> samples = sampleRepository.findAll();
 
@@ -56,8 +57,8 @@ class SampleRepositoryTest {
     }
 
     @Test
-    void update_성공() {
-        Sample sample = new Sample(1, "홍길동2");
+    void update_성공DB() {
+        Sample sample = new Sample(1L, "홍길동2");
         sampleRepository.update(sample);
         List<Sample> samples = sampleRepository.findAll();
 
@@ -67,11 +68,11 @@ class SampleRepositoryTest {
     }
 
     @Test
-    void findById_정상조회() {
-        Optional<Sample> sample = sampleRepository.findById(1);
+    void findById_정상조회DB() {
+        Optional<Sample> sample = sampleRepository.findById(1L);
 
         assertThat(sample).isPresent();
-        assertThat(sample.get().getId()).isEqualTo(1);
+        assertThat(sample.get().getId()).isEqualTo(1L);
         assertThat(sample.get().getName()).isEqualTo("홍길동");
     }
 

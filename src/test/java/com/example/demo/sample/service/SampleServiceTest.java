@@ -28,8 +28,8 @@ class SampleServiceTest {
     void findAll_정상조회() {
         when(sampleRepository.findAll())
                 .thenReturn(
-                        List.of(new Sample(1, "홍길동"),
-                                new Sample(2, "둘리")
+                        List.of(new Sample(1L, "홍길동"),
+                                new Sample(2L, "둘리")
                         )
                 ); // Mock 동작 정의(stub)
 
@@ -46,7 +46,7 @@ class SampleServiceTest {
     void insert_성공() {
 
         when(sampleRepository.insert(any(Sample.class)))
-                .thenReturn(new Sample(1,"홍길동")); // Mock 동작 정의(stub)
+                .thenReturn(new Sample(1L,"홍길동")); // Mock 동작 정의(stub)
 
         Sample sample = sampleService.insert(new Sample(null,"홍길동")); // 메서드 호출(act)
 
@@ -61,9 +61,9 @@ class SampleServiceTest {
     @Test
     void update_성공() {
         when(sampleRepository.update(any(Sample.class)))
-                .thenReturn(new Sample(1, "둘리"));
+                .thenReturn(new Sample(1L, "둘리"));
 
-        Sample sample = sampleService.update(new Sample(1, "둘리"));
+        Sample sample = sampleService.update(new Sample(1L, "둘리"));
 
         assertThat(sample.getId()).isEqualTo(1);
         assertThat(sample.getName()).isEqualTo("둘리");
@@ -75,7 +75,7 @@ class SampleServiceTest {
     void delete_성공() {
         // 반환값이 없으므로 stub 필요 없음.
 
-        Integer id = 1;
+        Long id = 1L;
         sampleService.delete(id);
         verify(sampleRepository, times(1)).delete(id);
     }
@@ -85,20 +85,20 @@ class SampleServiceTest {
 
         doThrow(new RuntimeException("Failed to delete sample"))
                 .when(sampleRepository)
-                .delete(9999); // Mock 동작 정의 (stub)
+                .delete(9999L); // Mock 동작 정의 (stub)
 
-        RuntimeException exception = assertThrows(RuntimeException.class, () -> sampleService.delete(9999)); // 예외 발생 검증
+        RuntimeException exception = assertThrows(RuntimeException.class, () -> sampleService.delete(9999L)); // 예외 발생 검증
 
         assertThat(exception.getMessage()).isEqualTo("Failed to delete sample");
     }
 
     @Test
     void findById() {
-        when(sampleRepository.findById(anyInt())).thenReturn(Optional.of(new Sample(1, "홍길동")));
-        Sample sample = sampleService.findById(1);
-        assertThat(sample.getId()).isEqualTo(1);
+        when(sampleRepository.findById(anyLong())).thenReturn(Optional.of(new Sample(1L, "홍길동")));
+        Sample sample = sampleService.findById(1L);
+        assertThat(sample.getId()).isEqualTo(1L);
         assertThat(sample.getName()).isEqualTo("홍길동");
-        verify(sampleRepository, times(1)).findById(anyInt());
+        verify(sampleRepository, times(1)).findById(anyLong());
     }
 
 }
