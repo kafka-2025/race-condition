@@ -21,15 +21,15 @@ public class SampleService {
     }
 
     public Sample insert(Sample sample) {
-        return sampleRepository.insert(sample);
+        return sampleRepository.save(sample);
     }
 
     public Sample update(Sample sample) {
-        return sampleRepository.update(sample);
+        return sampleRepository.save(sample);
     }
 
     public void delete(Long id) {
-        sampleRepository.delete(id);
+        sampleRepository.deleteById(id);
     }
 
     public Sample findById(Long id) {

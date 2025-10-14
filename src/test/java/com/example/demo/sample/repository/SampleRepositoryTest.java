@@ -4,11 +4,10 @@ import com.example.demo.sample.entity.Sample;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.JdbcTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Import;
 
 import javax.sql.DataSource;
-
 import java.sql.Connection;
 import java.sql.Statement;
 import java.util.List;
@@ -17,8 +16,7 @@ import java.util.Optional;
 import static org.assertj.core.api.Assertions.assertThat;
 
 
-@JdbcTest  // JDBC 관련 설정만 로드
-@Import(SampleRepository.class)  // 테스트 대상 명시적으로 등록
+@DataJpaTest // H2 같은 인메모리 DB를 기본으로 띄우고, EntityManager, Repository만 로드함.
 class SampleRepositoryTest {
 
     @Autowired
@@ -48,7 +46,7 @@ class SampleRepositoryTest {
     @Test
     void insert_성공DB() {
         Sample sample = new Sample(null, "철수");
-        sampleRepository.insert(sample);
+        sampleRepository.save(sample);
         List<Sample> samples = sampleRepository.findAll();
 
         assertThat(samples)
@@ -59,7 +57,7 @@ class SampleRepositoryTest {
     @Test
     void update_성공DB() {
         Sample sample = new Sample(1L, "홍길동2");
-        sampleRepository.update(sample);
+        sampleRepository.save(sample);
         List<Sample> samples = sampleRepository.findAll();
 
         assertThat(samples)

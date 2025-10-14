@@ -1,7 +1,13 @@
 package com.example.demo.sample.entity;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "tb_sample")
 public class Sample {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
 
@@ -16,6 +22,8 @@ public class Sample {
     public void setId(Long id) {
         this.id = id;
     }
+
+    public Sample(){}
 
     public Sample(Long id, String name) {
         this.id = id;

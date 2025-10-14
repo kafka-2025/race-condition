@@ -45,7 +45,7 @@ class SampleServiceTest {
     @Test
     void insert_성공() {
 
-        when(sampleRepository.insert(any(Sample.class)))
+        when(sampleRepository.save(any(Sample.class)))
                 .thenReturn(new Sample(1L,"홍길동")); // Mock 동작 정의(stub)
 
         Sample sample = sampleService.insert(new Sample(null,"홍길동")); // 메서드 호출(act)
@@ -54,13 +54,13 @@ class SampleServiceTest {
         assertThat(sample.getName()).isEqualTo("홍길동"); // 결과 검증 (assert)
 
         verify(sampleRepository, times(1))
-                .insert(any(Sample.class)); // mock을 한번만 호출했는지 확인 (verify)
+                .save(any(Sample.class)); // mock을 한번만 호출했는지 확인 (verify)
 
     }
 
     @Test
     void update_성공() {
-        when(sampleRepository.update(any(Sample.class)))
+        when(sampleRepository.save(any(Sample.class)))
                 .thenReturn(new Sample(1L, "둘리"));
 
         Sample sample = sampleService.update(new Sample(1L, "둘리"));
@@ -68,7 +68,7 @@ class SampleServiceTest {
         assertThat(sample.getId()).isEqualTo(1);
         assertThat(sample.getName()).isEqualTo("둘리");
 
-        verify(sampleRepository, times(1)).update(any(Sample.class));
+        verify(sampleRepository, times(1)).save(any(Sample.class));
     }
 
     @Test
@@ -77,7 +77,7 @@ class SampleServiceTest {
 
         Long id = 1L;
         sampleService.delete(id);
-        verify(sampleRepository, times(1)).delete(id);
+        verify(sampleRepository, times(1)).deleteById(id);
     }
 
     @Test
@@ -85,7 +85,7 @@ class SampleServiceTest {
 
         doThrow(new RuntimeException("Failed to delete sample"))
                 .when(sampleRepository)
-                .delete(9999L); // Mock 동작 정의 (stub)
+                .deleteById(9999L); // Mock 동작 정의 (stub)
 
         RuntimeException exception = assertThrows(RuntimeException.class, () -> sampleService.delete(9999L)); // 예외 발생 검증
 
