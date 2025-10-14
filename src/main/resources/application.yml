@@ -1,16 +1,6 @@
 spring:
   application:
     name: demo
-  h2:
-    console:
-      enabled: true
-      path: /h2-console
-  datasource:
-    #url: jdbc:h2:mem:test
-    url: jdbc:h2:file:./data/test;MODE=MySQL;
-    driver-class-name: org.h2.Driver
-    username: sa
-    password:
 
 # 콘솔 로그 출력 패턴 설정 (메서드, 클래스명, 라인번호 포함)
 logging:
@@ -19,3 +9,30 @@ logging:
     com.example.demo: ERROR
   pattern:
     console: "%d{yyyyMMdd HH:mm:ss.SSS} [%thread] %green(%-3level) %blue(%logger{30}.%M:%line) - %msg%n"
+
+# ===============
+# local 환경 설정
+# ===============
+---
+spring:
+  config:
+    activate:
+      on-profile: local
+  datasource:
+    url: jdbc:mysql://localhost:3306/sample_db?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Seoul
+    username: sample_admin
+    password: sample1!@#$%
+
+# ===============
+# dev 환경 설정
+# ===============
+---
+spring:
+  config:
+    activate:
+      on-profile: dev
+  datasource:
+    url: jdbc:mysql://mysql-container:3306/sample_db?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Seoul
+    username: sample_admin
+    password: sample1!@#$%
+

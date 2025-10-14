@@ -24,8 +24,8 @@ dependencies {
     // Spring Boot JDBC 지원
     implementation 'org.springframework.boot:spring-boot-starter-jdbc'
 
-    // H2 데이터베이스 (인메모리용)
-    runtimeOnly 'com.h2database:h2'
+    // MySQL 드라이버
+    runtimeOnly 'com.mysql:mysql-connector-j'
 
     // Validation
     implementation 'jakarta.validation:jakarta.validation-api:3.0.2'
