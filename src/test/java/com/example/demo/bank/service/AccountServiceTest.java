@@ -1,7 +1,6 @@
 package com.example.demo.bank.service;
 
 import com.example.demo.bank.domain.Account;
-import com.example.demo.bank.domain.AccountHistory;
 import com.example.demo.bank.domain.User;
 import com.example.demo.bank.repository.AccountHistoryRepository;
 import com.example.demo.bank.repository.AccountRepository;
@@ -54,7 +53,7 @@ class AccountServiceTest {
     @Test
     void deposit_정상입금() {
         // given
-        when(accountRepository.findById(1L))
+        when(accountRepository.findByIdWithLock(1L))
                 .thenReturn(Optional.of(new Account("12345",
                         new BigDecimal("100"),
                         new User("홍길동")))
@@ -69,16 +68,16 @@ class AccountServiceTest {
         verify(accountHistoryRepository, times(1))
                 .save(argThat(accountHistory ->
                         accountHistory.getAmount().equals(new BigDecimal("50")) &&
-                        accountHistory.getTransType().equals(DEPOSIT)
+                                accountHistory.getTransType().equals(DEPOSIT)
                 ));
 
-        verify(accountRepository, times(1)).findById(1L);
+        verify(accountRepository, times(1)).findByIdWithLock(1L);
     }
 
     @Test
     void withdraw_정상출금() {
         // given
-        when(accountRepository.findById(1L))
+        when(accountRepository.findByIdWithLock(1L))
                 .thenReturn(Optional.of(new Account("12345",
                         new BigDecimal("100"),
                         new User("홍길동")))
@@ -96,7 +95,7 @@ class AccountServiceTest {
                                 accountHistory.getTransType().equals(WITHDRAW)
                 ));
 
-        verify(accountRepository, times(1)).findById(1L);
+        verify(accountRepository, times(1)).findByIdWithLock(1L);
     }
 
 }

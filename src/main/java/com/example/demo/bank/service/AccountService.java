@@ -31,7 +31,7 @@ public class AccountService {
 
     @Transactional
     public Account deposit(Long accountId, BigDecimal amount) {
-        Account account = getAccount(accountId);
+        Account account = accountRepository.findByIdWithLock(accountId).orElseThrow(() -> new NotFoundException("계좌를 찾을 수 없습니다. id="+ accountId));
         account.setBalance(account.getBalance().add(amount));
         accountHistoryRepository.save(new AccountHistory(account, DEPOSIT, amount));
         return account;
@@ -39,7 +39,7 @@ public class AccountService {
 
     @Transactional
     public Account withdraw(Long accountId, BigDecimal amount) {
-        Account account = getAccount(accountId);
+        Account account = accountRepository.findByIdWithLock(accountId).orElseThrow(() -> new NotFoundException("계좌를 찾을 수 없습니다. id="+ accountId));
         account.setBalance(account.getBalance().subtract(amount));
         accountHistoryRepository.save(new AccountHistory(account, WITHDRAW, amount));
         return account;

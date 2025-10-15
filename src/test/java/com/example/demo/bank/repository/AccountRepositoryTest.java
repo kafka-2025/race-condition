@@ -60,7 +60,7 @@ class AccountRepositoryTest {
         accountRepository.save(account);
 
         // then
-        Account updated = accountRepository.findById(account.getId()).orElseThrow();
+        Account updated = accountRepository.findByIdWithLock(account.getId()).orElseThrow();
         assertThat(updated.getBalance()).isEqualTo(new BigDecimal("150.00"));
     }
 
@@ -75,7 +75,7 @@ class AccountRepositoryTest {
         accountRepository.save(account);
 
         // then
-        Account updated = accountRepository.findById(account.getId()).orElseThrow();
+        Account updated = accountRepository.findByIdWithLock(account.getId()).orElseThrow();
         assertThat(updated.getBalance()).isEqualTo(new BigDecimal("75.00"));
     }
 }
