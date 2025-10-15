@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import java.math.BigDecimal;
 
 @Entity
+@Table(name = "tb_account")
 public class Account {
 
     @Id
@@ -20,4 +21,32 @@ public class Account {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "user_id", nullable = false)
     private User owner;
+
+    public Account() {}
+
+    public Account(String accountNumber, BigDecimal balance, User owner) {
+        this.accountNumber = accountNumber;
+        this.balance = balance;
+        this.owner = owner;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getAccountNumber() {
+        return accountNumber;
+    }
+
+    public BigDecimal getBalance() {
+        return balance;
+    }
+
+    public User getOwner() {
+        return owner;
+    }
+
+    public void setBalance(BigDecimal balance) {
+        this.balance = balance;
+    }
 }
