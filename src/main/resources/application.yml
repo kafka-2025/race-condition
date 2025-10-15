@@ -24,7 +24,7 @@ spring:
     password: sample1!@#$%
   jpa:
     hibernate:
-      ddl-auto: none
+      ddl-auto: update
     show-sql: true
     properties:
       hibernate:
@@ -44,7 +44,7 @@ spring:
     password: sample1!@#$%
   jpa:
     hibernate:
-      ddl-auto: none
+      ddl-auto: update
     show-sql: true
     properties:
       hibernate:
