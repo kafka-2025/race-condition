@@ -17,21 +17,21 @@ public class GlobalExceptionHandler {
     private final Logger log = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
     @ExceptionHandler(InvalidRequestException.class)
-    public ResponseEntity<ResponseObject<?>> handleException(InvalidRequestException e) {
+    public ResponseEntity<ResponseObject<Void>> handleException(InvalidRequestException e) {
         log.error(e.getMessage());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                 .body(ResponseObject.fail(e.getMessage()));
     }
 
     @ExceptionHandler(NotFoundException.class)
-    public ResponseEntity<ResponseObject<?>> handleException(NotFoundException e) {
+    public ResponseEntity<ResponseObject<Void>> handleException(NotFoundException e) {
         log.error(e.getMessage());
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
                 .body(ResponseObject.fail(e.getMessage()));
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<ResponseObject<?>> handleException(MethodArgumentNotValidException ex) {
+    public ResponseEntity<ResponseObject<Void>> handleException(MethodArgumentNotValidException ex) {
         log.error(ex.getMessage());
         String errorMsg = ex.getBindingResult().getFieldErrors().stream()
                 .map(e -> e.getField() + ": " + e.getDefaultMessage())
@@ -43,14 +43,14 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(RuntimeException.class)
-    public ResponseEntity<ResponseObject<?>> handleException(RuntimeException e) {
+    public ResponseEntity<ResponseObject<Void>> handleException(RuntimeException e) {
         log.error(e.getMessage());
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body(ResponseObject.fail(e.getMessage()));
     }
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<ResponseObject<?>> handleException(Exception e) {
+    public ResponseEntity<ResponseObject<Void>> handleException(Exception e) {
         log.error(e.getMessage());
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body(ResponseObject.fail(e.getMessage()));
