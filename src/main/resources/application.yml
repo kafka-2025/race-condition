@@ -7,6 +7,8 @@ logging:
   level:
     root: INFO
     com.example.demo: ERROR
+    org.hibernate.SQL: DEBUG
+    org.hibernate.orm.jdbc.bind: TRACE
   pattern:
     console: "%d{yyyyMMdd HH:mm:ss.SSS} [%thread] %green(%-3level) %blue(%logger{30}.%M:%line) - %msg%n"
 
@@ -25,10 +27,11 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
-    show-sql: true
-#    properties:
-#      hibernate:
-#        format_sql: true
+#    show-sql: true
+    properties:
+      hibernate:
+        highlight_sql: true
+        format_sql: true
 
 # ===============
 # dev 환경 설정
@@ -45,8 +48,9 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
-    show-sql: true
+    #    show-sql: true
     properties:
       hibernate:
+        highlight_sql: true
         format_sql: true
 
