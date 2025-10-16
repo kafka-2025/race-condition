@@ -49,7 +49,7 @@ class AccountHistoryServiceTest {
         // given
         Long accountId = 1L;
         when(accountRepository.findById(accountId)).thenReturn(Optional.of(account));
-        when(accountHistoryRepository.findAllByAccount(account)).thenReturn(List.of(history1, history2));
+        when(accountHistoryRepository.findAllByAccountId(accountId)).thenReturn(List.of(history1, history2));
 
         // when
         List<AccountHistory> accountHistories = accountHistoryService.getAccountHistories(accountId);
@@ -59,6 +59,6 @@ class AccountHistoryServiceTest {
         Assertions.assertThat(accountHistories).contains(history1, history2);
 
         verify(accountRepository, times(1)).findById(accountId);
-        verify(accountHistoryRepository, times(1)).findAllByAccount(account);
+        verify(accountHistoryRepository, times(1)).findAllByAccountId(accountId);
     }
 }

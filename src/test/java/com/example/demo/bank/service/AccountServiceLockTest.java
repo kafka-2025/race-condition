@@ -83,7 +83,7 @@ class AccountServiceLockTest {
         Assertions.assertThat(updated.getBalance()).isEqualByComparingTo(new BigDecimal("1100.00"));
 
         // AccountHistory 검증
-        Assertions.assertThat(accountHistoryRepository.findAllByAccount(account)).hasSize(threadCount);
+        Assertions.assertThat(accountHistoryRepository.findAllByAccountId(account.getId())).hasSize(threadCount);
     }
 
 

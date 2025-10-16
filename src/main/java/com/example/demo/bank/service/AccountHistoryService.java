@@ -22,6 +22,6 @@ public class AccountHistoryService {
 
     public List<AccountHistory> getAccountHistories(Long accountId) {
         Account account = accountRepository.findById(accountId).orElseThrow(() -> new NotFoundException("계좌를 찾을 수 없습니다. id="+ accountId));
-        return accountHistoryRepository.findAllByAccount(account);
+        return accountHistoryRepository.findAllByAccountId(accountId);
     }
 }

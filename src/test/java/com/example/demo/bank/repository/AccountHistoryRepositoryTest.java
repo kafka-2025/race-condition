@@ -50,7 +50,7 @@ class AccountHistoryRepositoryTest {
         // given
 
         // when
-        List<AccountHistory> allHistory = accountHistoryRepository.findAllByAccount(account);
+        List<AccountHistory> allHistory = accountHistoryRepository.findAllByAccountId(account.getId());
 
 
         // then
